@@ -8,7 +8,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class TelegramBotController extends TelegramLongPollingBot {
+
+public class MyTelegramBot extends TelegramLongPollingBot {
     @Value("${bot.token}")
     private String botToken;
 
