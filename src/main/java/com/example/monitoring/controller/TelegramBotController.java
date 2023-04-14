@@ -1,5 +1,6 @@
 package com.example.monitoring.controller;
 
+import com.example.monitoring.parser.UniversalParser;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -7,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,6 +21,20 @@ public class TelegramBotController extends TelegramLongPollingBot {
     private final Map<Long, Boolean> monitoringStatus = new ConcurrentHashMap<>();
     private final CommandFactory commandFactory = new CommandFactory();
 
+    private final UniversalParser parser = new UniversalParser();
+
+    public void checkSourcesForUser(long chatId) {
+        Set<String> sources = userSources.get(chatId);
+        Set<String> interests = userInterests.get(chatId);
+
+        for (String source : sources) {
+            for (String interest : interests) {
+                List<String> matchingContent = parser.parse(source, interest);
+
+                // Отправьте уведомления о подходящем контенте пользователю
+            }
+        }
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
