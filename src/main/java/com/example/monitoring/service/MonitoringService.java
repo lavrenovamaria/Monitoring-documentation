@@ -1,37 +1,34 @@
 package com.example.monitoring.service;
 
-import com.example.monitoring.model.Source;
-import com.example.monitoring.model.User;
 import com.example.monitoring.parser.UniversalParser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
-@Service
 public class MonitoringService {
+    private final Map<Long, Set<String>> userSources = new ConcurrentHashMap<>();
+    private final Map<Long, Set<String>> userInterests = new ConcurrentHashMap<>();
+    private final UniversalParser parser = new UniversalParser();
 
-    @Autowired
-    private SourceService sourceService;
+    public void checkSourcesForUser(long chatId) {
+        Set<String> sources = userSources.get(chatId);
+        Set<String> interests = userInterests.get(chatId);
 
-    @Autowired
-    private UserService userService;
+        for (String source : sources) {
+            for (String interest : interests) {
+                List<String> matchingContent = parser.parse(source, interest);
 
-    @Autowired
-    private InterestSearch interestSearch;
-
-    public void monitorSources() {
-        List<Source> sources = sourceService.getAllSources();
-        List<User> users = userService.getAllUsers();
-
-        for (Source source : sources) {
-            String content = UniversalParser.getContent(source.getUrl());
-            for (User user : users) {
-                List<String> matchingEvents = interestSearch.findMatchingEvents(content, user.getInterests());
-                if (!matchingEvents.isEmpty()) {
-                    // Send notification to user with matching events
-                }
+                // Отправьте уведомления о подходящем контенте пользователю
             }
         }
     }
+
+    public void listSources(long chatId) {
+    }
+
+    // Добавьте соответствующие методы для работы с userSources и userInterests
+    // Например, методы для добавления, удаления и просмотра источников и интересов
 }

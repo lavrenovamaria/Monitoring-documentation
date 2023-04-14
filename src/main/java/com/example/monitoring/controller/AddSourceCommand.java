@@ -1,11 +1,12 @@
 package com.example.monitoring.controller;
 
+import com.example.monitoring.service.MonitoringService;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class AddSourceCommand implements Command {
     private final TelegramBotController telegramBotController;
 
-    public AddSourceCommand(TelegramBotController telegramBotController) {
+    public AddSourceCommand(MonitoringService telegramBotController) {
         this.telegramBotController = telegramBotController;
     }
 

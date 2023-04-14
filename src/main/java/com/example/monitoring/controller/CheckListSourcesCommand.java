@@ -1,11 +1,12 @@
 package com.example.monitoring.controller;
 
+import com.example.monitoring.service.MonitoringService;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class CheckListSourcesCommand implements Command {
-    private final TelegramBotController telegramBotController;
+    private final MonitoringService telegramBotController;
 
-    public CheckListSourcesCommand(TelegramBotController telegramBotController) {
+    public CheckListSourcesCommand(MonitoringService telegramBotController) {
         this.telegramBotController = telegramBotController;
     }
 
