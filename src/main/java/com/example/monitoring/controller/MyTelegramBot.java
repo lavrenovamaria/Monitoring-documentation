@@ -16,8 +16,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
     private final CommandFactory commandFactory = new CommandFactory();
     private final MonitoringService monitoringService = new MonitoringService();
 
-    public MyTelegramBot(DefaultBotOptions options, String botToken, String botUsername) {
-        super(options);
+    public MyTelegramBot(String botToken, String botUsername) {
         this.botToken = botToken;
         this.botUsername = botUsername;
     }
