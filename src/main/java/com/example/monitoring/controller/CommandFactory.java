@@ -5,7 +5,7 @@ import com.example.monitoring.service.MonitoringService;
 public class CommandFactory {
     private final MonitoringService monitoringService;
 
-    public CommandFactory(MonitoringService monitoringService) {
+    public CommandFactory() {
         this.monitoringService = monitoringService;
     }
 

@@ -35,15 +35,17 @@ public class TelegramBotController extends TelegramLongPollingBot {
     }
 
     private void sendReply(long chatId, String text) {
-        SendMessage message = new SendMessage()
-                .setChatId(Long.toString(chatId))
-                .setText(text);
+        SendMessage message = new SendMessage();
+        message.setChatId(Long.toString(chatId));
+        message.setText(text);
+
         try {
             execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public String getBotUsername() {
