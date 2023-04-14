@@ -4,7 +4,7 @@ import com.example.monitoring.service.MonitoringService;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class RemoveSourceCommand implements Command {
-    private final TelegramBotController telegramBotController;
+    private final MonitoringService telegramBotController;
 
     public RemoveSourceCommand(MonitoringService telegramBotController) {
         this.telegramBotController = telegramBotController;

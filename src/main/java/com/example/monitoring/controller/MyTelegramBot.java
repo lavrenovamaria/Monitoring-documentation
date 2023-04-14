@@ -1,8 +1,8 @@
 package com.example.monitoring.controller;
 
 import com.example.monitoring.service.MonitoringService;
-import org.springframework.beans.factory.annotation.Value;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,14 +10,17 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
 public class MyTelegramBot extends TelegramLongPollingBot {
-    @Value("${bot.token}")
-    private String botToken;
-
-    @Value("${bot.username}")
-    private String botUsername;
+    private final String botToken;
+    private final String botUsername;
 
     private final CommandFactory commandFactory = new CommandFactory();
     private final MonitoringService monitoringService = new MonitoringService();
+
+    public MyTelegramBot(DefaultBotOptions options, String botToken, String botUsername) {
+        super(options);
+        this.botToken = botToken;
+        this.botUsername = botUsername;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {

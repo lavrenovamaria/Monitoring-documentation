@@ -4,14 +4,14 @@ import com.example.monitoring.service.MonitoringService;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class AddSourceCommand implements Command {
-    private final TelegramBotController telegramBotController;
+    private final MonitoringService monitoringService;
 
-    public AddSourceCommand(MonitoringService telegramBotController) {
-        this.telegramBotController = telegramBotController;
+    public AddSourceCommand(MonitoringService monitoringService) {
+        this.monitoringService = monitoringService;
     }
 
     @Override
     public void execute(long chatId, String args) throws TelegramApiException {
-        telegramBotController.addSource(chatId, args);
+        monitoringService.addSource(chatId, args);
     }
 }

@@ -6,7 +6,7 @@ public class CommandFactory {
     private final MonitoringService monitoringService;
 
     public CommandFactory() {
-        this.monitoringService = monitoringService;
+        this.monitoringService = new MonitoringService();
     }
 
     public Command getCommand(String text) {
