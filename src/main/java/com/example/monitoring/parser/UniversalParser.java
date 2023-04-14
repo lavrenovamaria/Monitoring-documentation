@@ -26,4 +26,14 @@ public class UniversalParser {
 
         return results;
     }
+
+    public static String getContent(String url) {
+        try {
+            Document doc = Jsoup.connect(url).get();
+            return doc.outerHtml();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }
