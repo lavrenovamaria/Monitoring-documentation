@@ -17,7 +17,6 @@ public class TelegramBotController extends TelegramLongPollingBot {
     private final String botUsername = "YOUR_BOT_USERNAME";
     private final Map<Long, Set<String>> userSources = new ConcurrentHashMap<>();
     private final Map<Long, Boolean> monitoringStatus = new ConcurrentHashMap<>();
-
     private final CommandFactory commandFactory = new CommandFactory();
 
 
@@ -35,6 +34,41 @@ public class TelegramBotController extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+            } else if (text.equals("/stop")) {
+                try {
+                    Command stopMonitoringCommand = new StopMonitoringCommand(this);
+                    stopMonitoringCommand.execute(chatId, null);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (text.startsWith("/add ")) {
+                try {
+                    Command addSourceCommand = new AddSourceCommand(this);
+                    addSourceCommand.execute(chatId, text.substring(5));
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (text.startsWith("/remove ")) {
+                try {
+                    Command removeSourceCommand = new RemoveSourceCommand(this);
+                    removeSourceCommand.execute(chatId, text.substring(8));
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (text.equals("/list")) {
+                try {
+                    Command listSourcesCommand = new CheckListSourcesCommand(this);
+                    listSourcesCommand.execute(chatId, null);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (text.equals("/start")) {
+                try {
+                    Command startMonitoringCommand = new StartMonitoringCommand(this);
+                    startMonitoringCommand.execute(chatId, null);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
                 sendReply(chatId, "Неизвестная команда: " + text);
             }
@@ -46,17 +80,17 @@ public class TelegramBotController extends TelegramLongPollingBot {
         sendReply(chatId, "Мониторинг начат.");
     }
 
-    private void stopMonitoring(long chatId) throws TelegramApiException {
+    void stopMonitoring(long chatId) throws TelegramApiException {
         monitoringStatus.put(chatId, false);
         sendReply(chatId, "Мониторинг остановлен.");
     }
 
-    private void addSource(long chatId, String source) throws TelegramApiException {
+    void addSource(long chatId, String source) throws TelegramApiException {
         userSources.computeIfAbsent(chatId, k -> new HashSet<>()).add(source);
         sendReply(chatId, "Источник добавлен успешно: " + source);
     }
 
-    private void removeSource(long chatId, String source) throws TelegramApiException {
+    void removeSource(long chatId, String source) throws TelegramApiException {
         Set<String> sources = userSources.get(chatId);
         if (sources != null && sources.remove(source)) {
             sendReply(chatId, "Источник удален успешно: " + source);
@@ -65,7 +99,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
         }
     }
 
-    private void listSources(long chatId) throws TelegramApiException {
+    void listSources(long chatId) throws TelegramApiException {
         Set<String> sources = userSources.get(chatId);
         if (sources == null || sources.isEmpty()) {
             sendReply(chatId, "У вас нет добавленных источников.");
