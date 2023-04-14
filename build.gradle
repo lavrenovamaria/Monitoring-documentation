@@ -10,6 +10,7 @@ sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -22,6 +23,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation 'org.quartz-scheduler:quartz:2.3.2'
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    implementation 'org.hibernate:hibernate-core:5.6.3.Final'
+    implementation 'org.hibernate:hibernate-entitymanager:5.6.3.Final'
+    implementation 'com.github.gwenn:sqlite-dialect:0.1.0'
+
+
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.2.0'
