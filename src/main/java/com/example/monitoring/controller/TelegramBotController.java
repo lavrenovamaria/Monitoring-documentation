@@ -1,6 +1,7 @@
 package com.example.monitoring.controller;
 
 import com.example.monitoring.service.MonitoringService;
+import org.springframework.beans.factory.annotation.Value;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -8,8 +9,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBotController extends TelegramLongPollingBot {
-    private final String botToken = "YOUR_BOT_TOKEN";
-    private final String botUsername = "YOUR_BOT_USERNAME";
+    @Value("${bot.token}")
+    private String botToken;
+
+    @Value("${bot.username}")
+    private String botUsername;
 
     private final CommandFactory commandFactory = new CommandFactory();
     private final MonitoringService monitoringService = new MonitoringService();
