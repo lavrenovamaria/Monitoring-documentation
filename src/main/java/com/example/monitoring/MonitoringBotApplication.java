@@ -3,6 +3,7 @@ package com.example.monitoring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class MonitoringBotApplication {
 
@@ -10,3 +11,4 @@ public class MonitoringBotApplication {
         SpringApplication.run(MonitoringBotApplication.class, args);
     }
 }
+
